@@ -5,11 +5,11 @@ from django.utils.text import slugify
 from recipes.models import Recipe
 
 
-@receiver(pre_save, sender=Recipe)
-def create_slug(sender, instance, **kwargs):
-    if not instance.slug:
-        instance.slug = slugify(instance.title)
-        instance.save()
+# @receiver(pre_save, sender=Recipe)
+# def create_slug(sender, instance, **kwargs):
+#     if not instance.slug:
+#         instance.slug = slugify(instance.title)
+#         instance.save()
 
 
 @receiver(post_save, sender=Recipe)

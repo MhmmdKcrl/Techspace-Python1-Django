@@ -27,6 +27,9 @@ from accounts.views import activate
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("rosetta/", include("rosetta.urls")),
+    path('api-auth/', include('rest_framework.urls')),
+
+    path('api/', include('recipes.api.urls')),
 
     re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,32})/$',
         activate, name='activate'),

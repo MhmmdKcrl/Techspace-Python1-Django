@@ -54,9 +54,13 @@ class Recipe(DateMixin):
     class Meta:
         verbose_name_plural = 'Recipes'
         verbose_name = 'Recipe'
+        ordering = ['-created_at']
 
     def get_absolute_url(self):
         return reverse_lazy('recipe_single', kwargs={'slug': self.slug})
+    
+    def author_fullname(self):
+        return f'{self.author.first_name} {self.author.last_name}'
 
 
 class RecipeImages(models.Model):

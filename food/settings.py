@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rosetta',
 
     'social_django',  
+    'rest_framework',
 
 ]
 
