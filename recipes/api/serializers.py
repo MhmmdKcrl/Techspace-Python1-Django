@@ -54,7 +54,8 @@ class RecipeSerializer(serializers.ModelSerializer):
         
 
 class RecipeCreateSerializer(serializers.ModelSerializer):
-
+    author = serializers.PrimaryKeyRelatedField(read_only = True)
+    
     class Meta:
         model = Recipe
         fields = [
@@ -66,3 +67,7 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
                   'tags', 
                   'author',
                   ]
+        
+    def validate(self, data):
+        data['author'] = self.context['request'].user
+        return data
