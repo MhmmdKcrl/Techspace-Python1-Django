@@ -13,3 +13,10 @@ class Contact(models.Model):
     def __str__(self):
         return self.name
     
+
+class Subscriber(models.Model):
+    email = EmailField()
+
+    def __str__(self):
+        return self.email
+    

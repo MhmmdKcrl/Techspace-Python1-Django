@@ -7,6 +7,20 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
 
 from core.forms import ContactForm
+from core.tasks import my_task, send_mail_to_subscribers
+
+
+def export(request):
+    # my_task()
+    my_task.delay()
+    return HttpResponse("Exporting data...")
+
+
+def send_mail(request):
+    send_mail_to_subscribers.delay()
+    return HttpResponse("Sending emails...")
+
+
 
 def home(request):
     return render(request, "index.html")

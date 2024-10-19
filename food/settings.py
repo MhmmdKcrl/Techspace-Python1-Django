@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'social_django',  
     'rest_framework',
     'drf_yasg',
-     "corsheaders",
+    "corsheaders",
+    'django_celery_beat',
 
 ]
 
@@ -250,3 +251,10 @@ LOGOUT_REDIRECT_URL = reverse_lazy('accounts:login')
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('GOOGLE_OAUTH_CLIENT_ID')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('GOOGLE_OAUTH_CLIENT_SECRET')
+
+
+
+
+# Celery settings
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
