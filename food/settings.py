@@ -21,10 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-@)#b-jq)^)j@dg&)0d8c%ad_it2u@%s*_+c_2_*u7@$#8nje$m"
+SECRET_KEY = "wneu2w*(hq1jl6gjzrl46x*the4j-ru-it6#(znbqug!(c3(lr"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get("DEBUG", default=1))
+PROD = not DEBUG
 
 ALLOWED_HOSTS = ["*"]
 
@@ -107,11 +108,11 @@ WSGI_APPLICATION = "food.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": 'py1_db2',
-        "PASSWORD": '12345',
-        "USER": 'root',
-        "HOST": '127.0.0.1',
-        "PORT": 5432,
+        "NAME": os.environ.get('POSTGRES_DB'),
+        "PASSWORD":  os.environ.get('POSTGRES_PASSWORD'),
+        "USER":  os.environ.get('POSTGRES_USER'),
+        "HOST":  os.environ.get('POSTGRES_HOST'),
+        "PORT": os.environ.get('POSTGRES_PORT'),
     }
 }
 
@@ -175,15 +176,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = '/static/'
 
-if DEBUG:
-    STATICFILES_DIRS = [BASE_DIR / "static"]
-    
+if PROD:
+    STATIC_ROOT = os.path.join(BASE_DIR, "static")
 else:
-    STATIC_ROOT = BASE_DIR / "staticfiles"
-
-
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 
 MEDIA_URL = "/media/" 
@@ -209,8 +207,8 @@ EMAIL_BACKEND = 'food.email_backends.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'kocerlimehemmed2003@gmail.com'
-EMAIL_HOST_PASSWORD = 'cprw lyip rulh gaaq'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 
 
@@ -249,8 +247,8 @@ LOGOUT_URL = reverse_lazy('accounts:logout')
 LOGOUT_REDIRECT_URL = reverse_lazy('accounts:login')
 
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('GOOGLE_OAUTH_CLIENT_ID')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('GOOGLE_OAUTH_CLIENT_SECRET')
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('GOOGLE_OAUTH_CLIENT_ID')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('GOOGLE_OAUTH_CLIENT_SECRET')
 
 
 
