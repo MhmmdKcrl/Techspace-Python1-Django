@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, I
 
 from recipes.models import Category, Tags, Recipe
 from recipes.api.serializers import CategorySerializer, TagSerializer, RecipeSerializer, RecipeCreateSerializer
